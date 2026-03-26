@@ -124,6 +124,7 @@ def book_appointment():
     except ValueError:
         print("Invalid date format.\n")
         return
+
 def view_appointments():
     """View all appointments."""
     with sqlite3.connect(DB_FILE) as conn:
