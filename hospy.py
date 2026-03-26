@@ -124,6 +124,35 @@ def book_appointment():
     except ValueError:
         print("Invalid date format.\n")
         return
+def view_appointments():
+    """View all appointments."""
+    with sqlite3.connect(DB_FILE) as conn:
+        c = conn.cursor()
+        c.execute("""
+            SELECT a.appointment_id, p.patient_name, h.hospital_name, a.appointment_date
+            FROM appointments a
+            JOIN patients p ON a.patient_id = p.patient_id
+            JOIN hospitals h ON a.hospital_id = h.hospital_id
+            ORDER BY a.appointment_date
+        """)
+        appointments = c.fetchall()
+
+    if not appointments:
+        print("No appointments booked yet.\n")
+        return
+
+    print("\nAppointments:")
+    for a in appointments:
+        print(f"ID: {a[0]} | Patient: {a[1]} | Hospital: {a[2]} | Date: {a[3]}")
+    print()
+
+def cancel_appointment():
+    """Cancel an appointment by ID."""
+    view_appointments()
+    appointment_id = input("Enter appointment ID to cancel: ").strip()
+    if not appointment_id.isdigit():
+        print("Invalid input.\n")
+        return
 
     with sqlite3.connect(DB_FILE) as conn:
         c = conn.cursor()
