@@ -156,7 +156,10 @@ def cancel_appointment():
 
     with sqlite3.connect(DB_FILE) as conn:
         c = conn.cursor()
-        c.execute("INSERT INTO appointments (patient_id, hospital_id, appointment_date) VALUES (?, ?, ?)",
-                  (patient_id, hospital_id, date_str))
-        print("Appointment successfully booked!\n")
+        c.execute("DELETE FROM appointments WHERE appointment_id = ?", (appointment_id,))
+        if c.rowcount == 0:
+            print("Appointment ID not found.\n")
+        else:
+            print("Appointment cancelled successfully.\n")
+
 
