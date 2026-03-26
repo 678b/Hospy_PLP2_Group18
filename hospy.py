@@ -162,5 +162,38 @@ def cancel_appointment():
             print("Appointment ID not found.\n")
         else:
             print("Appointment cancelled successfully.\n")
+# ---------- MAIN MENU ----------
+def main_menu():
+    """Main program menu."""
+    create_tables()
+    while True:
+        print("=== Hospital Appointment Booking System ===")
+        print("1. Register Hospital")
+        print("2. Register Patient")
+        print("3. Book Appointment")
+        print("4. View Appointments")
+        print("5. Cancel Appointment")
+        print("6. Exit")
 
+        choice = input("Enter your choice (1-6): ").strip()
+        print()
+        if choice == "1":
+            register_hospital()
+        elif choice == "2":
+            register_patient()
+        elif choice == "3":
+            book_appointment()
+        elif choice == "4":
+            view_appointments()
+        elif choice == "5":
+            cancel_appointment()
+        elif choice == "6":
+            print("Exiting system. Have a nice day!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 6.\n")
+
+# ---------- RUN APPLICATION ----------
+if __name__ == "__main__":
+    main_menu()
 
