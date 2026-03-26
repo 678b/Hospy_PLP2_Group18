@@ -125,6 +125,12 @@ def book_appointment():
         print("Invalid date format.\n")
         return
 
+    with sqlite3.connect(DB_FILE) as conn:
+        c = conn.cursor()
+        c.execute("INSERT INTO appointments (patient_id, hospital_id, appointment_date) VALUES (?, ?, ?)",
+                  (patient_id, hospital_id, date_str))
+        print("Appointment successfully booked!\n")
+
 def view_appointments():
     """View all appointments."""
     with sqlite3.connect(DB_FILE) as conn:
@@ -162,6 +168,7 @@ def cancel_appointment():
             print("Appointment ID not found.\n")
         else:
             print("Appointment cancelled successfully.\n")
+
 # ---------- MAIN MENU ----------
 def main_menu():
     """Main program menu."""
