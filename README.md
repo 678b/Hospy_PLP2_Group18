@@ -28,12 +28,14 @@ This feature displays all booked appointments in a readable format.
  Code explanation:
 The program joins the appointments, patients, and hospitals tables.
 Displays appointment ID, patient name, hospital name, and appointment date.
+
 5. Cancel Appointment
 This feature removes an existing appointment.
-Code explanation:
+ Code explanation:
 The program first lists all current appointments.
 The user enters the appointment_id to cancel.
 The selected appointment is deleted from the database.
+
 Database Description
 The program uses a SQLite database (appointments_data.db) to store all data persistently. It has three main tables:
 hospitals
@@ -49,12 +51,14 @@ appointment_id (Primary Key)
 patient_id (Foreign Key)
 hospital_id (Foreign Key)
 appointment_date
+
 Why appointments_data.db Is in the Repository
 The repository includes a pre-populated sample database (appointments_data.db) to:
 Demonstrate program functionality immediately.
 Allow the facilitator or any tester to see sample hospitals, patients, and appointments without creating them manually.
 Avoid errors that occur when the program tries to access a database that does not exist.
 Note: The program will use this file automatically. Any new data added during testing will be saved to this database.
+
 How to Test the Program
 Ensure no other program (PyCharm, DB Browser, etc.) is currently using appointments_data.db.
 Open Command Prompt (CMD) in the project folder.
@@ -67,10 +71,12 @@ Book Appointment – select a patient and hospital, set a date, and confirm the 
 View Appointments – check all appointments, including newly added ones.
 Cancel Appointment – delete an appointment and confirm it no longer appears.
 The program will keep running until you select Exit.
+
 Important Notes for Testing with the Included Database
 If you are using the downloaded appointments_data.db, do not delete it initially; it contains sample data necessary for testing.
 Ensure no other program locks the file. If you encounter a database access error, close all programs using it and try again.
 You can start with a fresh database by deleting appointments_data.db and running hospy.py. The program will create a new empty database automatically.
+
 Project Setup
 Requirements:
 Python 3.x installed
@@ -83,4 +89,5 @@ cd <repo-folder>
 Run the program:
 python hospy.py
 Follow the menu prompts to use all features.
+
 
