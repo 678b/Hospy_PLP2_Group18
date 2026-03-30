@@ -39,8 +39,8 @@ def is_valid_name(name):
     return all(char.isalpha() or char.isspace() for char in name)
 
 def is_valid_phone(phone):
-    """Check if phone contains only digits."""
-    return phone.isdigit()
+    """Check if phone is valid (digits only, 10 digits, starts with 07)."""
+    return phone.isdigit() and len(phone) == 10 and phone.startswith("07")
 
 # ---------- HOSPITAL MANAGEMENT ----------
 def register_hospital():
@@ -100,7 +100,7 @@ def register_patient():
 
     # Phone validation
     if not is_valid_phone(phone):
-        print("Phone number must contain only digits.\n")
+        print("Phone number must be 10 digits and start with 07.\n")
         return
 
     with sqlite3.connect(DB_FILE) as conn:
