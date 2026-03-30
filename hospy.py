@@ -33,13 +33,33 @@ def create_tables():
             )
         """)
 
+# ---------- HELPER VALIDATION FUNCTIONS ----------
+def is_valid_name(name):
+    """Check if name contains only letters and spaces."""
+    return all(char.isalpha() or char.isspace() for char in name)
+
+def is_valid_phone(phone):
+    """Check if phone contains only digits."""
+    return phone.isdigit()
+
 # ---------- HOSPITAL MANAGEMENT ----------
 def register_hospital():
     """Register a new hospital."""
     name = input("Enter hospital name: ").strip()
     location = input("Enter hospital location: ").strip()
+
+    # Empty validation
     if not name or not location:
         print("All fields are required.\n")
+        return
+
+    # Name validation
+    if not is_valid_name(name):
+        print("Hospital name must contain only letters and spaces.\n")
+        return
+
+    if not is_valid_name(location):
+        print("Location must contain only letters and spaces.\n")
         return
 
     with sqlite3.connect(DB_FILE) as conn:
@@ -47,10 +67,11 @@ def register_hospital():
 
         # Check for duplicate hospital name
         c.execute("SELECT * FROM hospitals WHERE hospital_name = ?", (name,))
-        if c.fetchone():  # if a row is returned, it already exists
+        if c.fetchone():
             print(f"Hospital '{name}' is already registered.\n")
             return
 
+        # Insert new hospital
         c.execute("INSERT INTO hospitals (hospital_name, location) VALUES (?, ?)", (name, location))
         print(f"Hospital '{name}' registered successfully!\n")
 
@@ -66,8 +87,20 @@ def register_patient():
     """Register a new patient."""
     name = input("Enter patient name: ").strip()
     phone = input("Enter phone number: ").strip()
+
+    # Empty validation
     if not name or not phone:
         print("All fields are required.\n")
+        return
+
+    # Name validation
+    if not is_valid_name(name):
+        print("Patient name must contain only letters and spaces.\n")
+        return
+
+    # Phone validation
+    if not is_valid_phone(phone):
+        print("Phone number must contain only digits.\n")
         return
 
     with sqlite3.connect(DB_FILE) as conn:
@@ -79,6 +112,7 @@ def register_patient():
             print(f"Patient '{name}' is already registered.\n")
             return
 
+        # Insert new patient
         c.execute("INSERT INTO patients (patient_name, phone) VALUES (?, ?)", (name, phone))
         print(f"Patient '{name}' registered successfully!\n")
 
